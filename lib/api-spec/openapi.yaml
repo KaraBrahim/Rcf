@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: scores
+    description: Leaderboard score operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /scores:
+    get:
+      operationId: getScores
+      tags: [scores]
+      summary: Get top scores
+      description: Returns the top leaderboard scores
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: List of top scores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScoreEntry"
+    post:
+      operationId: submitScore
+      tags: [scores]
+      summary: Submit a score
+      description: Submit a new score to the leaderboard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitScoreRequest"
+      responses:
+        "201":
+          description: Score submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScoreEntry"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +80,47 @@ components:
           type: string
       required:
         - status
-
+    ScoreEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+        nickname:
+          type: string
+        score:
+          type: integer
+        round:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - nickname
+        - score
+        - round
+        - createdAt
+    SubmitScoreRequest:
+      type: object
+      properties:
+        nickname:
+          type: string
+          minLength: 1
+          maxLength: 30
+        score:
+          type: integer
+          minimum: 0
+        round:
+          type: integer
+          minimum: 1
+      required:
+        - nickname
+        - score
+        - round
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

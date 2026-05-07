@@ -6,4 +6,8 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./errorResponse";
+export * from "./getScoresParams";
 export * from "./healthStatus";
+export * from "./scoreEntry";
+export * from "./submitScoreRequest";

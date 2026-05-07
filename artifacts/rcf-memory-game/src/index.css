@@ -26,19 +26,19 @@
 }
 
 :root {
-  --background: 232 63% 18%;
-  --foreground: 0 0% 100%;
+  --background: 214 100% 97%;
+  --foreground: 232 63% 18%;
   --card: 0 0% 100%;
   --card-foreground: 232 63% 18%;
   --primary: 29 100% 48%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 232 63% 25%;
-  --secondary-foreground: 0 0% 100%;
+  --secondary: 214 60% 93%;
+  --secondary-foreground: 232 63% 18%;
   --accent: 29 100% 48%;
   --accent-foreground: 0 0% 100%;
-  --muted: 232 30% 30%;
-  --muted-foreground: 0 0% 80%;
-  --border: 232 30% 35%;
+  --muted: 214 40% 90%;
+  --muted-foreground: 232 30% 45%;
+  --border: 214 30% 85%;
   --ring: 29 100% 48%;
   --radius: 0.75rem;
   --app-font-sans: 'Inter', 'Segoe UI', sans-serif;
@@ -59,14 +59,14 @@
 
 /* Card flip styles */
 .card-scene {
-  perspective: 600px;
+  perspective: 700px;
 }
 
 .card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
 
@@ -80,7 +80,7 @@
   height: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
 }
 
 .card-front {
@@ -93,18 +93,18 @@
 
 /* Match celebration pulse */
 @keyframes matchPulse {
-  0% { box-shadow: 0 0 0 0 rgba(245, 124, 0, 0.7); }
-  70% { box-shadow: 0 0 0 16px rgba(245, 124, 0, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(245, 124, 0, 0.6); }
+  70% { box-shadow: 0 0 0 18px rgba(245, 124, 0, 0); }
   100% { box-shadow: 0 0 0 0 rgba(245, 124, 0, 0); }
 }
 
-.card-matched {
-  animation: matchPulse 0.6s ease-out;
+.card-matched-anim {
+  animation: matchPulse 0.7s ease-out;
 }
 
 /* Timer urgency */
 @keyframes timerUrgent {
-  0%, 100% { color: #f57c00; }
+  0%, 100% { color: #e65100; }
   50% { color: #ff1744; }
 }
 
@@ -114,48 +114,68 @@
 
 /* Celebration overlay */
 @keyframes celebrationBounce {
-  0% { transform: scale(0.5) translateY(20px); opacity: 0; }
-  60% { transform: scale(1.1) translateY(-5px); }
+  0% { transform: scale(0.6) translateY(20px); opacity: 0; }
+  60% { transform: scale(1.05) translateY(-4px); }
   100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 .celebration-enter {
-  animation: celebrationBounce 0.5s ease-out forwards;
+  animation: celebrationBounce 0.4s ease-out forwards;
 }
 
 /* Star rating */
 @keyframes starPop {
-  0% { transform: scale(0); }
-  70% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% { transform: scale(0) rotate(-20deg); }
+  70% { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); }
 }
 
 .star-pop {
-  animation: starPop 0.3s ease-out forwards;
+  display: inline-block;
+  animation: starPop 0.35s ease-out forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
 }
 
-/* Background pattern */
-.bg-pattern {
-  background-color: #1a237e;
-  background-image: 
-    radial-gradient(circle at 25px 25px, rgba(245,124,0,0.08) 2px, transparent 0),
-    radial-gradient(circle at 75px 75px, rgba(255,255,255,0.04) 2px, transparent 0);
-  background-size: 100px 100px;
+/* Card hover */
+.card-hover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-
-/* Glow effect on hover */
 .card-hover:hover:not(.matched-card) {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(245, 124, 0, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(26, 35, 126, 0.15);
 }
 
-/* Confetti animation */
+/* Confetti */
 @keyframes confettiFall {
   0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
   100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
-
 .confetti-piece {
   animation: confettiFall linear forwards;
 }
+
+/* Background subtle dot pattern */
+.bg-dots {
+  background-color: #eef3ff;
+  background-image: radial-gradient(#c5d3f7 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Gradient hero */
+.hero-gradient {
+  background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #1565c0 100%);
+}
+
+/* Input focus ring */
+.input-rcf:focus {
+  outline: none;
+  border-color: #f57c00;
+  box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.2);
+}
+
+/* Rank badge */
+.rank-gold { background: linear-gradient(135deg, #ffd700, #ffa000); }
+.rank-silver { background: linear-gradient(135deg, #e0e0e0, #9e9e9e); }
+.rank-bronze { background: linear-gradient(135deg, #cd7f32, #8d4e00); }
+.rank-default { background: linear-gradient(135deg, #1a237e, #283593); }

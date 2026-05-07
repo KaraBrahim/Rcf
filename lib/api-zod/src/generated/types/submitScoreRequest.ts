@@ -5,17 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
-
-export interface ScoreEntry {
-  id: number;
-  nickname: string;
-  score: number;
-  round: number;
-  createdAt: string;
-}
 
 export interface SubmitScoreRequest {
   /**
@@ -28,11 +17,3 @@ export interface SubmitScoreRequest {
   /** @minimum 1 */
   round: number;
 }
-
-export interface ErrorResponse {
-  error: string;
-}
-
-export type GetScoresParams = {
-  limit?: number;
-};
