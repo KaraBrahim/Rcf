@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "RCF Memory Card Game"
+version = "1.0.0"
+id = "artifacts/rcf-memory-game"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25739
+
+[services.development]
+run = "pnpm --filter @workspace/rcf-memory-game run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/rcf-memory-game", "run", "build" ]
+publicDir = "artifacts/rcf-memory-game/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25739"
+BASE_PATH = "/"
